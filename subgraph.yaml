@@ -1,0 +1,46 @@
+specVersion: 0.0.2
+description: mudrex subgraph ropsten network
+repository: https://github.com/sauravtom/mudrex-ropsten
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: Gravity
+    network: ropsten
+    source:
+      address: '0x2E645469f354BB4F5c8a05B3b30A929361cf77eC'
+      abi: Gravity
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Gravatar
+      abis:
+        - name: Gravity
+          file: ./abis/Gravity.json
+      eventHandlers:
+        - event: NewGravatar(uint256,address,string,string)
+          handler: handleNewGravatar
+        - event: UpdatedGravatar(uint256,address,string,string)
+          handler: handleUpdatedGravatar
+      file: ./src/mapping.ts
+  - kind: ethereum/contract
+    name: mudrex
+    network: ropsten
+    source:
+      address: '0xe6c8fA5790d27FE6ca07c17E8FFEe9C6fbCA71DC'
+      abi: Fund
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Fund
+      abis:
+        - name: Fund
+          file: ./build/contracts/Fund.json
+      eventHandlers:
+        - event: Deposit(indexed address,uint256)
+          handler: handleNewDeposit
+      file: ./src/mapping.ts
