@@ -1,0 +1,44 @@
+project_structure:
+  build: build
+  contracts: contracts
+  interfaces: interfaces
+  reports: reports
+  scripts: scripts
+  tests: tests
+
+# use Ganache's forked mainnet mode as the default network
+networks:
+  default: ropsten
+  development:
+    cmd_settings:
+      accounts: 100
+
+# automatically fetch contract sources from Etherscan
+autofetch_sources: True
+
+# require OpenZepplin Contracts
+dependencies:
+  - OpenZeppelin/openzeppelin-contracts@3.4.0
+  - OpenZeppelin/openzeppelin-contracts-upgradeable@3.4.0
+
+# path remapping to support OpenZepplin imports with NPM-style path
+# remapping has a bug when remapping multiple paths from same github root
+# https://github.com/eth-brownie/brownie/issues/893
+# compiler:
+#   solc:
+#     remappings:
+#       - "@openzeppelin=OpenZeppelin/openzeppelin-contracts@3.4.0"
+#       - "@openzeppelin-upgradeable=OpenZeppelin/openzeppelin-contracts-upgradeable@3.4.0"
+
+reports:
+  exclude_paths:
+    - contracts/test/Token.sol
+    - contracts/test/ProfitStrategy.sol
+
+dev_deployment_artifacts: True
+
+console:
+  show_colors: true
+  color_style: monokai
+  auto_suggest: true
+  completions: true

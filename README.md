@@ -12,6 +12,11 @@ yarn install
 pip install eth-brownie
 brownie compile
 
+//deploy subgraph
 yarn codegen
 yarn deploy
+
+//brownie deployment
+export WEB3_INFURA_PROJECT_ID=...
+brownie console
 ```
